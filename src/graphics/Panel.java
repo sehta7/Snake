@@ -32,7 +32,7 @@ public class Panel extends JPanel implements ActionListener{
 		g.setColor(color);
 		g.fillRect(xPosition, yPosition, width, height);
 
-		g.fillRect(xSnake, ySnake, width, height);
+		//g.fillRect(xSnake, ySnake, width, height);
 		
 		g.setColor(Color.RED);
 		g.fillOval(xApple, yApple, diameter, diameter);
@@ -46,21 +46,25 @@ public class Panel extends JPanel implements ActionListener{
 	}
 
 	public void right() {
+		xPosition += 10;
 		lastPress = 39;
 		repaint();
 	}
 
 	public void left() {
+		xPosition -= 10;
 		lastPress = 37;
 		repaint();
 	}
 
 	public void up() {
+		yPosition += 10;
 		lastPress = 40;
 		repaint();
 	}
 
 	public void down() {
+		yPosition -= 10;
 		lastPress = 38;
 		repaint();
 	}
@@ -72,27 +76,22 @@ public class Panel extends JPanel implements ActionListener{
 			case 37:
 				xPosition -= 10;
 				ySnake = yPosition;
-				height += 10;
 				break;
 			case 38:
 				yPosition -= 10;
 				ySnake = yPosition;
-				height += 10;
 				break;
 			case 39:
-				xPosition -= 10;
+				xPosition += 10;
 				ySnake = yPosition;
-				height += 10;
 				break;
 			case 40:
 				yPosition += 10;
 				ySnake = yPosition;
-				height += 10;
 				break;
 			default:
 				yPosition -= 10;
 				ySnake = yPosition;
-				height += 10;
 				break;
 			}
 		    repaint();
