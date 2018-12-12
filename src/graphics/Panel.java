@@ -9,13 +9,13 @@ import java.util.Random;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import model.Apple;
+import model.Snake;
+
 public class Panel extends JPanel implements ActionListener{
 
-	private int xPosition = 345, yPosition = 220;
-	private int xSnake = xPosition, ySnake = yPosition;
-	private int xApple, yApple, diameter = 10;
-	private int width = 10, height = 10;
-	private Color color = Color.BLUE;
+	private Apple apple;
+	private Snake snake;
 	private Timer timer = new Timer(500, this);
 	private Timer appleTimer = new Timer(5000, this);
 	private int lastPress;
@@ -23,48 +23,52 @@ public class Panel extends JPanel implements ActionListener{
 	public Panel() {
 		timer.start();
 		appleTimer.start();
+		snake = new Snake();
+		snake.setX(345);
+		snake.setY(220);
+		apple = new Apple();
 	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
-		g.setColor(color);
-		g.fillRect(xPosition, yPosition, width, height);
+		g.setColor(Color.BLUE);
+		g.fillRect(snake.getX(), snake.getY(), snake.getWidth(), snake.getHeight());
 
 		//g.fillRect(xSnake, ySnake, width, height);
 		
 		g.setColor(Color.RED);
-		g.fillOval(xApple, yApple, diameter, diameter);
+		g.fillOval(apple.getX(), apple.getY(), apple.getDiameter(), apple.getDiameter());
 
 	}
 	
 	public void apple() {
 		Random random = new Random();
-		xApple = random.nextInt(800);
-		yApple = random.nextInt(550);
+		apple.setX(random.nextInt(800));
+		apple.setY(random.nextInt(550));
 	}
 
 	public void right() {
-		xPosition += 10;
+		snake.setX(snake.getX() + 10);
 		lastPress = 39;
 		repaint();
 	}
 
 	public void left() {
-		xPosition -= 10;
+		snake.setX(snake.getX() - 10);
 		lastPress = 37;
 		repaint();
 	}
 
 	public void up() {
-		yPosition += 10;
+		snake.setY(snake.getY() + 10);
 		lastPress = 40;
 		repaint();
 	}
 
 	public void down() {
-		yPosition -= 10;
+		snake.setY(snake.getY() - 10);
 		lastPress = 38;
 		repaint();
 	}
@@ -74,24 +78,19 @@ public class Panel extends JPanel implements ActionListener{
 		if(e.getSource() == timer){
 			switch (lastPress) {
 			case 37:
-				xPosition -= 10;
-				ySnake = yPosition;
+				snake.setX(snake.getX() - 10);
 				break;
 			case 38:
-				yPosition -= 10;
-				ySnake = yPosition;
+				snake.setY(snake.getY() - 10);
 				break;
 			case 39:
-				xPosition += 10;
-				ySnake = yPosition;
+				snake.setX(snake.getX() + 10);
 				break;
 			case 40:
-				yPosition += 10;
-				ySnake = yPosition;
+				snake.setY(snake.getY() + 10);
 				break;
 			default:
-				yPosition -= 10;
-				ySnake = yPosition;
+				snake.setY(snake.getY() - 10);
 				break;
 			}
 		    repaint();

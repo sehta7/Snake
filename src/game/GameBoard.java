@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 
 import graphics.Panel;
 
-public class Snake {
+public class GameBoard {
 
 	private JFrame frame;
 	private Panel panel;
@@ -18,7 +18,7 @@ public class Snake {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Snake window = new Snake();
+					GameBoard window = new GameBoard();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -27,7 +27,7 @@ public class Snake {
 		});
 	}
 
-	public Snake() {
+	public GameBoard() {
 		initialize();
 	}
 
