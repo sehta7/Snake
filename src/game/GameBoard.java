@@ -12,7 +12,6 @@ public class GameBoard {
 
 	private JFrame frame;
 	private Panel panel;
-	
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -33,7 +32,7 @@ public class GameBoard {
 
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 800, 550);
+		frame.setBounds(100, 100, 800, 560);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		panel = new Panel();
 		
@@ -74,7 +73,7 @@ public class GameBoard {
 				
 			}
 		});
-		
+
 		frame.add(panel);
 		frame.setVisible(true);
 	}

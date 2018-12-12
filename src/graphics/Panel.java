@@ -17,15 +17,16 @@ public class Panel extends JPanel implements ActionListener{
 	private Apple apple;
 	private Snake snake;
 	private Timer timer = new Timer(500, this);
-	private Timer appleTimer = new Timer(5000, this);
+	private Timer appleTimer = new Timer(10000, this);
 	private int lastPress;
+	private Color color = Color.BLUE;
 	
 	public Panel() {
 		timer.start();
 		appleTimer.start();
 		snake = new Snake();
-		snake.setX(345);
-		snake.setY(220);
+		snake.setX(350);
+		snake.setY(230);
 		apple = new Apple();
 	}
 
@@ -33,9 +34,8 @@ public class Panel extends JPanel implements ActionListener{
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
-		g.setColor(Color.BLUE);
+		g.setColor(color);
 		g.fillRect(snake.getX(), snake.getY(), snake.getWidth(), snake.getHeight());
-
 		//g.fillRect(xSnake, ySnake, width, height);
 		
 		g.setColor(Color.RED);
@@ -43,32 +43,55 @@ public class Panel extends JPanel implements ActionListener{
 
 	}
 	
+	public void collision() {
+		if(apple.getX() == snake.getX() && apple.getY() == snake.getY()) {
+			grow();
+		}
+	}
+	
+	public void grow() {
+		color = Color.GREEN;
+	}
+	
 	public void apple() {
 		Random random = new Random();
-		apple.setX(random.nextInt(800));
-		apple.setY(random.nextInt(550));
+		int x = random.nextInt(800);
+		if(x%10 != 0) {
+			System.out.println(x);
+			x -= x%10;
+			apple.setX(x);
+		} else {
+			apple.setX(x);
+		}
+		int y = random.nextInt(550);
+		if(y%10 != 0) {
+			y -= y%10;
+			apple.setY(y);
+		} else {
+			apple.setY(y);
+		}
 	}
 
 	public void right() {
-		snake.setX(snake.getX() + 10);
+		snake.setX(snake.getX() + snake.getWidth());
 		lastPress = 39;
 		repaint();
 	}
 
 	public void left() {
-		snake.setX(snake.getX() - 10);
+		snake.setX(snake.getX() - snake.getWidth());
 		lastPress = 37;
 		repaint();
 	}
 
 	public void up() {
-		snake.setY(snake.getY() + 10);
+		snake.setY(snake.getY() + snake.getWidth());
 		lastPress = 40;
 		repaint();
 	}
 
 	public void down() {
-		snake.setY(snake.getY() - 10);
+		snake.setY(snake.getY() - snake.getWidth());
 		lastPress = 38;
 		repaint();
 	}
@@ -78,19 +101,24 @@ public class Panel extends JPanel implements ActionListener{
 		if(e.getSource() == timer){
 			switch (lastPress) {
 			case 37:
-				snake.setX(snake.getX() - 10);
+				snake.setX(snake.getX() - snake.getWidth());
+				collision();
 				break;
 			case 38:
-				snake.setY(snake.getY() - 10);
+				snake.setY(snake.getY() - snake.getWidth());
+				collision();
 				break;
 			case 39:
-				snake.setX(snake.getX() + 10);
+				snake.setX(snake.getX() + snake.getWidth());
+				collision();
 				break;
 			case 40:
-				snake.setY(snake.getY() + 10);
+				snake.setY(snake.getY() + snake.getWidth());
+				collision();
 				break;
 			default:
-				snake.setY(snake.getY() - 10);
+				snake.setY(snake.getY() - snake.getWidth());
+				collision();
 				break;
 			}
 		    repaint();
