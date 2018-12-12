@@ -1,16 +1,19 @@
 package game;
 
 import java.awt.EventQueue;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
+
+import graphics.Panel;
 
 public class Snake {
 
 	private JFrame frame;
+	private Panel panel;
+	
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -24,20 +27,56 @@ public class Snake {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public Snake() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 800, 550);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		panel = new Panel();
+		
+		frame.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				int keyCode = e.getKeyCode();
+				
+				switch (keyCode) {
+				case 37:
+					panel.left();
+					break;
+				case 40:
+					panel.up();
+					break;
+				case 39:
+					panel.right();
+					break;
+				case 38:
+					panel.down();
+					break;
+				default:
+					break;
+				}
+				
+			}
+		});
+		
+		frame.add(panel);
+		frame.setVisible(true);
 	}
 
 }
