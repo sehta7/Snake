@@ -74,7 +74,7 @@ public class GameBoard {
 			}
 		});
 
-		frame.add(panel);
+		frame.getContentPane().add(panel);
 		frame.setVisible(true);
 	}
 

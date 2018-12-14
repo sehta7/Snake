@@ -1,5 +1,7 @@
 package model;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public class Apple {
 
 	private int x;
@@ -8,6 +10,20 @@ public class Apple {
 	
 	public Apple() {
 		this.diameter = 10;
+		int x = ThreadLocalRandom.current().nextInt(10, 790);
+		if (x % 10 != 0) {
+			x -= x % 10;
+			this.x = x;
+		} else {
+			this.x = x;
+		}
+		int y = ThreadLocalRandom.current().nextInt(10, 500);
+		if (y % 10 != 0) {
+			y -= y % 10;
+			this.y = y;
+		} else {
+			this.y = y;
+		}
 	}
 	
 	public int getX() {
