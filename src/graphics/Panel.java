@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -47,6 +48,10 @@ public class Panel extends JPanel implements ActionListener {
 		g.setColor(Color.RED);
 		g.fillOval(apple.getX(), apple.getY(), apple.getDiameter(), apple.getDiameter());
 
+		if(end()) {
+			g.setColor(Color.ORANGE);
+			g.drawString("GAME OVER", 300, 250);
+		}
 	}
 
 	public boolean collision() {
@@ -80,6 +85,19 @@ public class Panel extends JPanel implements ActionListener {
 			break;
 		}
 	}
+	
+	public boolean end() {
+		if(snake.getCells().get(0).x == 0 || snake.getCells().get(0).x == 770 ||
+			snake.getCells().get(0).y == 0 || snake.getCells().get(0).y == 510) {
+			return true;
+		}
+		for (int i = 1; i < snake.getCells().size(); i++) {
+			if(snake.getCells().get(0).x == snake.getCells().get(i).x && snake.getCells().get(0).y == snake.getCells().get(i).y) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public void apple() {
 		int x = ThreadLocalRandom.current().nextInt(10, 790);
@@ -105,7 +123,11 @@ public class Panel extends JPanel implements ActionListener {
 				grow();
 				apple();
 			}
-			move();
+			if(end()) {   
+				
+			} else {
+				move();
+			}
 		}
 	}
 	
