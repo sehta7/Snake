@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import logic.Logic;
 import model.Apple;
 import model.Snake;
 
@@ -24,7 +25,6 @@ public class Panel extends JPanel implements ActionListener {
 	private Timer timer = new Timer(200, this);
 	private int lastPress;
 	private Color color = Color.BLUE;
-	private List<Point> tempCells;
 
 	public Panel() {
 		timer.start();
@@ -33,7 +33,6 @@ public class Panel extends JPanel implements ActionListener {
 		snake.setY(230);
 		apple = new Apple();
 		snake.getCells().add(new Point(snake.getX(), snake.getY()));
-		tempCells = new ArrayList<>();
 	}
 
 	@Override
@@ -48,121 +47,26 @@ public class Panel extends JPanel implements ActionListener {
 		g.setColor(Color.RED);
 		g.fillOval(apple.getX(), apple.getY(), apple.getDiameter(), apple.getDiameter());
 
-		if(end()) {
-			g.setColor(Color.ORANGE);
+		if(Logic.end(snake)) {
+			g.setColor(Color.BLACK);
 			g.drawString("GAME OVER", 300, 250);
-		}
-	}
-
-	public boolean collision() {
-		if (apple.getX() == snake.getCells().get(0).x && apple.getY() == snake.getCells().get(0).y) {
-			return true;
-		}
-		return false;
-	}
-
-	public void grow() {
-		switch (lastPress) {
-		case 37:
-			snake.setX(snake.getCells().get(snake.getCells().size() - 1).x + snake.getWidth());
-			snake.getCells().add(new Point(snake.getX(), snake.getY()));
-			break;
-		case 38:
-			snake.setY(snake.getCells().get(snake.getCells().size() - 1).y + snake.getWidth());
-			snake.getCells().add(new Point(snake.getX(), snake.getY()));
-			break;
-		case 39:
-			snake.setX(snake.getCells().get(snake.getCells().size() - 1).x - snake.getWidth());
-			snake.getCells().add(new Point(snake.getX(), snake.getY()));
-			break;
-		case 40:
-			snake.setY(snake.getCells().get(snake.getCells().size() - 1).y - snake.getWidth());
-			snake.getCells().add(new Point(snake.getX(), snake.getY()));
-			break;
-		default:
-			snake.setY(snake.getCells().get(snake.getCells().size() - 1).y + snake.getWidth());
-			snake.getCells().add(new Point(snake.getX(), snake.getY()));
-			break;
-		}
-	}
-	
-	public boolean end() {
-		if(snake.getCells().get(0).x == 0 || snake.getCells().get(0).x == 770 ||
-			snake.getCells().get(0).y == 0 || snake.getCells().get(0).y == 510) {
-			return true;
-		}
-		for (int i = 1; i < snake.getCells().size(); i++) {
-			if(snake.getCells().get(0).x == snake.getCells().get(i).x && snake.getCells().get(0).y == snake.getCells().get(i).y) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public void apple() {
-		int x = ThreadLocalRandom.current().nextInt(10, 790);
-		if (x % 10 != 0) {
-			x -= x % 10;
-			apple.setX(x);
-		} else {
-			apple.setX(x);
-		}
-		int y = ThreadLocalRandom.current().nextInt(10, 500);
-		if (y % 10 != 0) {
-			y -= y % 10;
-			apple.setY(y);
-		} else {
-			apple.setY(y);
 		}
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == timer) {
-			if(collision()) {
-				grow();
-				apple();
+			if(Logic.collision(apple, snake)) {
+				Logic.grow(lastPress, snake);
+				Logic.apple(apple);
 			}
-			if(end()) {   
+			if(Logic.end(snake)) {   
 				
 			} else {
-				move();
+				Logic.move(lastPress, snake);
+				repaint();
 			}
 		}
-	}
-	
-	public void move() {
-		tempCells.clear();
-		tempCells.addAll(snake.getCells());
-		snake.getCells().clear();
-		switch (lastPress) {
-		case 37:
-			snake.setX(tempCells.get(0).x - snake.getWidth());
-			snake.getCells().add(new Point(snake.getX(), snake.getY()));
-			break;
-		case 38:
-			snake.setY(tempCells.get(0).y - snake.getWidth());
-			snake.getCells().add(new Point(snake.getX(), snake.getY()));
-			break;
-		case 39:
-			snake.setX(tempCells.get(0).x + snake.getWidth());
-			snake.getCells().add(new Point(snake.getX(), snake.getY()));
-			break;
-		case 40:
-			snake.setY(tempCells.get(0).y + snake.getWidth());
-			snake.getCells().add(new Point(snake.getX(), snake.getY()));
-			break;
-		default:
-			snake.setY(tempCells.get(0).y - snake.getWidth());
-			snake.getCells().add(new Point(snake.getX(), snake.getY()));
-			break;
-		}
-		if(tempCells.size() > 1) {
-			for (int i = 0; i <= tempCells.size() - 2; i++) {
-				snake.getCells().add(tempCells.get(i));
-			}
-		}
-		repaint();
 	}
 	
 

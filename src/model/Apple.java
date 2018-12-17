@@ -10,7 +10,7 @@ public class Apple {
 	
 	public Apple() {
 		this.diameter = 10;
-		int x = ThreadLocalRandom.current().nextInt(10, 790);
+		int x = ThreadLocalRandom.current().nextInt(10, 780);
 		if (x % 10 != 0) {
 			x -= x % 10;
 			this.x = x;
