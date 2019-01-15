@@ -5,7 +5,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
+
 import graphics.Panel;
 
 public class GameBoard {
@@ -35,21 +35,8 @@ public class GameBoard {
 		frame.setBounds(100, 100, 800, 560);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		panel = new Panel();
-		JLabel label = new JLabel("GAME OVER");
-		
+
 		frame.addKeyListener(new KeyListener() {
-			
-			@Override
-			public void keyTyped(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
 			
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -73,9 +60,17 @@ public class GameBoard {
 				}
 				
 			}
+			
+			@Override
+			public void keyTyped(KeyEvent e) {	
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
 		});
 
-		frame.getContentPane().add(panel);
+		frame.add(panel);
 		frame.setVisible(true);
 	}
 
