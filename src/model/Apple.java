@@ -3,14 +3,16 @@ package model;
 import java.awt.Point;
 import java.util.concurrent.ThreadLocalRandom;
 
-import logic.Logic;
+import logic.AppleLogic;
 
 public class Apple {
 
 	private Point position;
 	private int diameter;
+	private AppleLogic logic;
 	
 	public Apple() {
+		logic = new AppleLogic(this);
 		this.diameter = 10;
 		position = new Point();
 		int x = ThreadLocalRandom.current().nextInt(10, 780);
@@ -50,7 +52,7 @@ public class Apple {
 	}
 	
 	public void newApple() {
-		Logic.newApple(this);
+		logic.newApple();
 	}
 	
 }

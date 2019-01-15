@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-import logic.Logic;
+import logic.SnakeLogic;
 
 public class Snake {
 
@@ -12,12 +12,14 @@ public class Snake {
 	private int width;
 	private int height;
 	private List<Point> cells;
+	private SnakeLogic logic;
 	
 	public Snake() {
 		this.width = 10;
 		this.height = 10;
 		position = new Point();
 		cells = new ArrayList<>();
+		logic = new SnakeLogic(this);
 	}
 	
 	public int getX() {
@@ -53,11 +55,19 @@ public class Snake {
 	}
 	
 	public void move(int lastPress) {
-		Logic.move(lastPress, this);
+		logic.move(lastPress);
 	}
 	
 	public void grow(int lastPress) {
-		Logic.grow(lastPress, this);
+		logic.grow(lastPress);
+	}
+	
+	public boolean collision(Apple apple) {
+		return logic.checkCollision(apple);
+	}
+	
+	public boolean gameOver() {
+		return logic.checkGameOver();
 	}
 
 }
