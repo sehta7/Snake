@@ -4,10 +4,11 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
+import logic.Logic;
+
 public class Snake {
 
-	private int x;
-	private int y;
+	private Point position;
 	private int width;
 	private int height;
 	private List<Point> cells;
@@ -15,23 +16,24 @@ public class Snake {
 	public Snake() {
 		this.width = 10;
 		this.height = 10;
+		position = new Point();
 		cells = new ArrayList<>();
 	}
 	
 	public int getX() {
-		return x;
+		return position.x;
 	}
 	
 	public void setX(int x) {
-		this.x = x;
+		this.position.x = x;
 	}
 	
 	public int getY() {
-		return y;
+		return position.y;
 	}
 	
 	public void setY(int y) {
-		this.y = y;
+		this.position.y = y;
 	}
 
 	public int getWidth() {
@@ -48,6 +50,14 @@ public class Snake {
 
 	public void setCells(List<Point> cells) {
 		this.cells = cells;
+	}
+	
+	public void move(int lastPress) {
+		Logic.move(lastPress, this);
+	}
+	
+	public void grow(int lastPress) {
+		Logic.grow(lastPress, this);
 	}
 
 }
