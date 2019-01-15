@@ -5,16 +5,10 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import logic.Logic;
 import model.Apple;
 import model.Snake;
 
@@ -23,7 +17,7 @@ public class Panel extends JPanel implements ActionListener {
 	private Apple apple;
 	private Snake snake;
 	private Timer timer = new Timer(200, this);
-	private int lastPress;
+	private int lastPress = 38;
 	private Color color = Color.BLUE;
 
 	public Panel() {
@@ -47,7 +41,7 @@ public class Panel extends JPanel implements ActionListener {
 		g.setColor(Color.RED);
 		g.fillOval(apple.getX(), apple.getY(), apple.getDiameter(), apple.getDiameter());
 
-		if(Logic.end(snake)) {
+		if(snake.gameOver()) {
 			g.setColor(Color.BLACK);
 			g.drawString("GAME OVER", 300, 250);
 		}
@@ -56,14 +50,14 @@ public class Panel extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == timer) {
-			if(Logic.collision(apple, snake)) {
-				Logic.grow(lastPress, snake);
-				Logic.apple(apple);
+			if(snake.collision(apple)) {
+				snake.grow(lastPress);
+				apple.newApple();
 			}
-			if(Logic.end(snake)) {   
-				
+			if(snake.gameOver()) {   
+				repaint();
 			} else {
-				Logic.move(lastPress, snake);
+				snake.move(lastPress);
 				repaint();
 			}
 		}
