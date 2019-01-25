@@ -2,6 +2,8 @@ package logic;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.awt.Point;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -33,14 +35,18 @@ class SnakeLogicTest {
 		assertNotSame(yPositionBefore, snake.getY());
 	}
 	
-	/*@Test
+	@Test
 	void samePositionOfAppleAndSnakeShouldMakeCollision() {
 		//given
 		Apple apple = new Apple();
+		apple.setPosition(new Point(100, 100));
+		snake.setHead(new Point(100, 100));
 		
 		//when
+		boolean collision = snakeLogic.checkCollision(apple);
 		
 		//then
-	}*/
+		assertTrue(collision);
+	}
 
 }

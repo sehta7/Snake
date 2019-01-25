@@ -71,4 +71,20 @@ public class Snake {
 		return logic.checkGameOver();
 	}
 
+	public Point getPosition() {
+		return position;
+	}
+
+	public void setPosition(Point position) {
+		this.position = position;
+	}
+	
+	public Point getHead() {
+		return new Point(getCells().get(0).x, getCells().get(0).y);
+	}
+	
+	public void setHead(Point position) {
+		getCells().set(0, position);
+	}
+
 }
