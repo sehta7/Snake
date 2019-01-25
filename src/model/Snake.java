@@ -17,9 +17,10 @@ public class Snake {
 	public Snake() {
 		this.width = 10;
 		this.height = 10;
-		position = new Point();
+		position = new Point(350, 230);
 		cells = new ArrayList<>();
 		logic = new SnakeLogic(this);
+		getCells().add(new Point(getX(), getY()));
 	}
 	
 	public int getX() {
