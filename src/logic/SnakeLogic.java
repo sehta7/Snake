@@ -63,7 +63,7 @@ public class SnakeLogic {
 	}
 
 	public boolean checkCollision(Apple apple) {
-		if (apple.getX() == snake.getCells().get(0).x && apple.getY() == snake.getCells().get(0).y) {
+		if (apple.getX() == snake.getHead().x && apple.getY() == snake.getHead().y) {
 			return true;
 		}
 		return false;
@@ -99,13 +99,13 @@ public class SnakeLogic {
 	}
 	
 	public boolean checkGameOver() {
-		if(snake.getCells().get(0).x == 0 || snake.getCells().get(0).x == 770 ||
-		   snake.getCells().get(0).y == 0 || snake.getCells().get(0).y == 510) {
+		if(snake.getHead().x == 0 || snake.getHead().x == 770 ||
+		   snake.getHead().y == 0 || snake.getHead().y == 510) {
 				return true;
 			}
 			for (int i = 1; i < snake.getCells().size(); i++) {
-				if(snake.getCells().get(0).x == snake.getCells().get(i).x &&
-				   snake.getCells().get(0).y == snake.getCells().get(i).y) {
+				if(snake.getHead().x == snake.getCells().get(i).x &&
+				   snake.getHead().y == snake.getCells().get(i).y) {
 					return true;
 				}
 			}

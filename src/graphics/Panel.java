@@ -23,10 +23,7 @@ public class Panel extends JPanel implements ActionListener {
 	public Panel() {
 		timer.start();
 		snake = new Snake();
-		snake.setX(350);
-		snake.setY(230);
 		apple = new Apple();
-		snake.getCells().add(new Point(snake.getX(), snake.getY()));
 	}
 
 	@Override
