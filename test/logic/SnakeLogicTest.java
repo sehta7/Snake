@@ -62,5 +62,19 @@ class SnakeLogicTest {
 		//then
 		assertFalse(collision);
 	}
+	
+	@Test
+	void snakeShouldAddCellWhenGrow() {
+		//given
+		int lastPress = 38;
+		int sizeBeforeGrow = snake.getCells().size();
+		
+		//when
+		snakeLogic.grow(lastPress);
+		
+		//then
+		assertNotSame(sizeBeforeGrow, snake.getCells().size());
+		assertEquals(sizeBeforeGrow + 1, snake.getCells().size());
+	}
 
 }
