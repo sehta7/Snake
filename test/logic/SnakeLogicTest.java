@@ -48,5 +48,19 @@ class SnakeLogicTest {
 		//then
 		assertTrue(collision);
 	}
+	
+	@Test
+	void otherPositionOfAppleAndSnakeShouldNotMakeCollision() {
+		//given
+		Apple apple = new Apple();
+		apple.setPosition(new Point(200, 100));
+		snake.setHead(new Point(100, 200));
+		
+		//when
+		boolean collision = snakeLogic.checkCollision(apple);
+		
+		//then
+		assertFalse(collision);
+	}
 
 }
