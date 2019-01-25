@@ -3,7 +3,6 @@ package logic;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 import model.Apple;
 import model.Snake;
