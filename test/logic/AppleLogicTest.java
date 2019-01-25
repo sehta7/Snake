@@ -12,9 +12,10 @@ class AppleLogicTest {
 	void applePositionShouldBeInsideBoard() {
 		//given
 		Apple apple = new Apple();
+		AppleLogic appleLogic = new AppleLogic(apple);
 		
 		//when
-		apple.newApple();
+		appleLogic.newApple();
 		
 		//then
 		assertTrue(apple.getX() >= 10 && apple.getX() <= 780);
